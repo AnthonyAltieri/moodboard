@@ -1,0 +1,978 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "da89bb13-22da-487a-856a-fabd1490dd70",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "fund_benchmarks": {
+      "name": "fund_benchmarks",
+      "columns": {
+        "from_fund_id": {
+          "name": "from_fund_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "to_security_id": {
+          "name": "to_security_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "fund_benchmarks_from_fund_id": {
+          "name": "fund_benchmarks_from_fund_id",
+          "columns": [
+            "from_fund_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "fund_group_quarterly_weights": {
+      "name": "fund_group_quarterly_weights",
+      "columns": {
+        "fund_id": {
+          "name": "fund_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "quarter": {
+          "name": "quarter",
+          "type": "enum('1','2','3','4')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "year": {
+          "name": "year",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "component_fund_id": {
+          "name": "component_fund_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "reported_value": {
+          "name": "reported_value",
+          "type": "double",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "quarter_over_quarter_value_change": {
+          "name": "quarter_over_quarter_value_change",
+          "type": "double",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "simulated_quarter_to_date_performance": {
+          "name": "simulated_quarter_to_date_performance",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "weight": {
+          "name": "weight",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "top_position_security_id": {
+          "name": "top_position_security_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "biggest_entry_security_id": {
+          "name": "biggest_entry_security_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "biggest_exit_security_id": {
+          "name": "biggest_exit_security_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "biggest_add_security_id": {
+          "name": "biggest_add_security_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "biggest_trim_security_id": {
+          "name": "biggest_trim_security_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "fund_group_quarterly_weights_component_fund_id_fund_id_quarter_year": {
+          "name": "fund_group_quarterly_weights_component_fund_id_fund_id_quarter_year",
+          "columns": [
+            "component_fund_id",
+            "fund_id",
+            "quarter",
+            "year"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "fund_links": {
+      "name": "fund_links",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "fund_id": {
+          "name": "fund_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(512)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "url": {
+          "name": "url",
+          "type": "varchar(512)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "fund_links_fund_id": {
+          "name": "fund_links_fund_id",
+          "columns": [
+            "fund_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "fund_links_id": {
+          "name": "fund_links_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "fund_quarterly_weights": {
+      "name": "fund_quarterly_weights",
+      "columns": {
+        "fund_id": {
+          "name": "fund_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "quarter": {
+          "name": "quarter",
+          "type": "enum('1','2','3','4')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "year": {
+          "name": "year",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "component_security_id": {
+          "name": "component_security_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "weight": {
+          "name": "weight",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "quarter_over_quarter_share_change": {
+          "name": "quarter_over_quarter_share_change",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "quarter_over_quarter_weight_change": {
+          "name": "quarter_over_quarter_weight_change",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "average_skill_quartile": {
+          "name": "average_skill_quartile",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "crowding_quartile": {
+          "name": "crowding_quartile",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "quarter_first_owned": {
+          "name": "quarter_first_owned",
+          "type": "enum('1','2','3','4')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "year_first_owned": {
+          "name": "year_first_owned",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "current_holding_period_in_quarters": {
+          "name": "current_holding_period_in_quarters",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "fund_quarterly_weights_component_security_id_fund_id_quarter_year": {
+          "name": "fund_quarterly_weights_component_security_id_fund_id_quarter_year",
+          "columns": [
+            "component_security_id",
+            "fund_id",
+            "quarter",
+            "year"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "fund_trailing_3m_stats": {
+      "name": "fund_trailing_3m_stats",
+      "columns": {
+        "fund_id": {
+          "name": "fund_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "date": {
+          "name": "date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "annualized_return": {
+          "name": "annualized_return",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "standard_deviation": {
+          "name": "standard_deviation",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "statistical_alpha": {
+          "name": "statistical_alpha",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "information_ratio": {
+          "name": "information_ratio",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "sharpe": {
+          "name": "sharpe",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "calmar": {
+          "name": "calmar",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "downside_deviation": {
+          "name": "downside_deviation",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "fund_trailing_3m_stats_date_fund_id": {
+          "name": "fund_trailing_3m_stats_date_fund_id",
+          "columns": [
+            "date",
+            "fund_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "funds": {
+      "name": "funds",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "sector": {
+          "name": "sector",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "is_group": {
+          "name": "is_group",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "funds_id": {
+          "name": "funds_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "securities": {
+      "name": "securities",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ticker": {
+          "name": "ticker",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "sector": {
+          "name": "sector",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "is_group": {
+          "name": "is_group",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "securities_id": {
+          "name": "securities_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "security_benchmarks": {
+      "name": "security_benchmarks",
+      "columns": {
+        "from_security_id": {
+          "name": "from_security_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "to_security_id": {
+          "name": "to_security_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "security_benchmarks_from_security_id": {
+          "name": "security_benchmarks_from_security_id",
+          "columns": [
+            "from_security_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "security_group_quarterly_weights": {
+      "name": "security_group_quarterly_weights",
+      "columns": {
+        "security_id": {
+          "name": "security_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "quarter": {
+          "name": "quarter",
+          "type": "enum('1','2','3','4')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "year_first_owned": {
+          "name": "year_first_owned",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "component_security_id": {
+          "name": "component_security_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "weight": {
+          "name": "weight",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "quarter_over_quarter_share_change": {
+          "name": "quarter_over_quarter_share_change",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "quarter_over_quarter_weight_change": {
+          "name": "quarter_over_quarter_weight_change",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "hodlers": {
+          "name": "hodlers",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "entries": {
+          "name": "entries",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "adds": {
+          "name": "adds",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "trims": {
+          "name": "trims",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "average_skill_quartile": {
+          "name": "average_skill_quartile",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "crowding_quartile": {
+          "name": "crowding_quartile",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "security_group_quarterly_weights_component_security_id_quarter_security_id_year_first_owned": {
+          "name": "security_group_quarterly_weights_component_security_id_quarter_security_id_year_first_owned",
+          "columns": [
+            "component_security_id",
+            "quarter",
+            "security_id",
+            "year_first_owned"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "security_links": {
+      "name": "security_links",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "security_id": {
+          "name": "security_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(512)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "url": {
+          "name": "url",
+          "type": "varchar(512)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "security_links_security_id": {
+          "name": "security_links_security_id",
+          "columns": [
+            "security_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "security_links_id": {
+          "name": "security_links_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "security_prices": {
+      "name": "security_prices",
+      "columns": {
+        "securtiy_id": {
+          "name": "securtiy_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "date": {
+          "name": "date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "price": {
+          "name": "price",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "security_prices_date_securtiy_id": {
+          "name": "security_prices_date_securtiy_id",
+          "columns": [
+            "date",
+            "securtiy_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "security_quarterly_holders": {
+      "name": "security_quarterly_holders",
+      "columns": {
+        "security_id": {
+          "name": "security_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "quarter": {
+          "name": "quarter",
+          "type": "enum('1','2','3','4')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "year": {
+          "name": "year",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "position_value": {
+          "name": "position_value",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "fund_percentage": {
+          "name": "fund_percentage",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "fund_average_position_size": {
+          "name": "fund_average_position_size",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "fund_shares": {
+          "name": "fund_shares",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "quarter_over_quarter_share_change": {
+          "name": "quarter_over_quarter_share_change",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "manager_quartile": {
+          "name": "manager_quartile",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "holding_period_in_quarters": {
+          "name": "holding_period_in_quarters",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "fund_weighted_average_holding_period_in_quarters": {
+          "name": "fund_weighted_average_holding_period_in_quarters",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "year_first_owned": {
+          "name": "year_first_owned",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "current_holding_period_in_quarters": {
+          "name": "current_holding_period_in_quarters",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "security_quarterly_holders_quarter_security_id_security_id_year": {
+          "name": "security_quarterly_holders_quarter_security_id_security_id_year",
+          "columns": [
+            "quarter",
+            "security_id",
+            "security_id",
+            "year"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "security_quarterly_stats": {
+      "name": "security_quarterly_stats",
+      "columns": {
+        "security_id": {
+          "name": "security_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "quarter": {
+          "name": "quarter",
+          "type": "enum('1','2','3','4')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "year": {
+          "name": "year",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "stat_name": {
+          "name": "stat_name",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "stat_type": {
+          "name": "stat_type",
+          "type": "enum('string','number')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "stat_value": {
+          "name": "stat_value",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "security_quarterly_stats_quarter_security_id_year": {
+          "name": "security_quarterly_stats_quarter_security_id_year",
+          "columns": [
+            "quarter",
+            "security_id",
+            "year"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "security_trailing_3m_stats": {
+      "name": "security_trailing_3m_stats",
+      "columns": {
+        "security_id": {
+          "name": "security_id",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "date": {
+          "name": "date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "annualized_return": {
+          "name": "annualized_return",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "standard_deviation": {
+          "name": "standard_deviation",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "statistical_alpha": {
+          "name": "statistical_alpha",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "information_ratio": {
+          "name": "information_ratio",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "sharpe": {
+          "name": "sharpe",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "calmar": {
+          "name": "calmar",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "downside_deviation": {
+          "name": "downside_deviation",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "security_trailing_3m_stats_date_security_id": {
+          "name": "security_trailing_3m_stats_date_security_id",
+          "columns": [
+            "date",
+            "security_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
