@@ -8,7 +8,6 @@ interface BoardsLayoutProps {
 }
 
 export default async function BoardsLayout({ children }: BoardsLayoutProps) {
-  const cu = await currentUser();
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -18,12 +17,8 @@ export default async function BoardsLayout({ children }: BoardsLayoutProps) {
           <UserAccountNav />
         </div>
       </header>
-      <main className="flex bg-blue-500">
-        <div className="flex w-96 grow flex-col bg-red-500 px-4 py-8">
-          <div>Boards</div>
-          <div>Models</div>
-        </div>
-        <div className="w-full bg-green-500">{children}</div>
+      <main className="flex flex-col">
+        {children}
       </main>
       <SiteFooter />
     </div>

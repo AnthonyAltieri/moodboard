@@ -17,7 +17,7 @@ export const toUserFromUseUser = (user: UserFromUseUser): User => {
   const name = createFullName(user.firstName, user.lastName);
   const imageUrl = isNonEmptyString(user.imageUrl) ? user.imageUrl : null;
 
-  return { name, imageUrl, email };
+  return { id: user.id, name, imageUrl, email };
 };
 
 export const toUserFromCurrentUser = (user: UserFromCurrentUser): User => {
@@ -33,5 +33,6 @@ export const toUserFromCurrentUser = (user: UserFromCurrentUser): User => {
   const name = createFullName(user.firstName, user.lastName);
   const imageUrl = isNonEmptyString(user.imageUrl) ? user.imageUrl : null;
 
-  return { name, imageUrl, email };
+
+  return { id: user.id, name, imageUrl, email };
 };

@@ -35,12 +35,15 @@
   "include": [
     ".eslintrc.cjs",
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.cjs",
-    "**/*.mjs",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./src/**/*.cjs",
+    "./src/**/*.mjs",
+    "next/types/**/*.ts",
+    "scripts/seed.ts",
+    "src/env.mts",
     ".next/types/**/*.ts"
-, "scripts/seed.ts", "src/env.mts"  ],
+  ],
   "exclude": [
     "node_modules"
   ],
@@ -49,6 +52,8 @@
     "compilerOptions": {
       "module": "CommonJS"
     },
-    "require": ["tsconfig-paths/register"]
+    "require": [
+      "tsconfig-paths/register"
+    ]
   }
 }
