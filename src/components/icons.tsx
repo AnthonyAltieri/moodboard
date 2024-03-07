@@ -40,11 +40,16 @@ import {
   ArrowLeftToLine,
   ArrowLeft,
   ArrowRightToLine,
+  Archive,
+  GalleryVertical,
+  Wand,
 } from "lucide-react";
 
 export type Icon = typeof LucideIcon;
 
 export const Icons = {
+  want: Wand,
+  archive: Archive,
   brain: Brain,
   logo: Command,
   close: X,
@@ -73,8 +78,9 @@ export const Icons = {
   arrowDown: ArrowDown,
   arrowUp: ArrowUp,
   arrowDownUp: ArrowDownUp,
-  arrowLeftToLine: ArrowLeftToLine, 
-  arrowRightToLine: ArrowRightToLine, 
+  arrowLeftToLine: ArrowLeftToLine,
+  arrowRightToLine: ArrowRightToLine,
+  galleryVertical: GalleryVertical,
   help: HelpCircle,
   pizza: Pizza,
   sun: SunMedium,

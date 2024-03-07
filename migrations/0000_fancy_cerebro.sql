@@ -30,6 +30,13 @@ CREATE TABLE `location_s3` (
 	CONSTRAINT `location_s3_id` PRIMARY KEY(`id`)
 );
 
+CREATE TABLE `user_asset` (
+	`clerk_user_id` varchar(32) NOT NULL,
+	`asset_id` varchar(12) NOT NULL,
+	`role` enum('owner','edit','read'),
+	CONSTRAINT `user_asset_asset_id_clerk_user_id` PRIMARY KEY(`asset_id`,`clerk_user_id`)
+);
+
 CREATE TABLE `user_board` (
 	`clerk_user_id` varchar(32) NOT NULL,
 	`board_id` varchar(12) NOT NULL,

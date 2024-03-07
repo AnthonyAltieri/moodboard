@@ -1,10 +1,9 @@
 import { type User } from "@clerk/nextjs/dist/types/server";
 import { sql } from "drizzle-orm";
 import { DateTime } from "luxon";
-import { type BoardTableRow, BoardsTable } from "~/components/boards-table/boards-table";
-import { getUserBoards } from "~/features/boards/get-user-boards";
+import { BoardsTable, type BoardTableRow } from "~/components/boards-table/boards-table";
 import { db } from "~/features/db";
-import { type Asset, type Board } from "~/features/schema";
+import { type Asset } from "~/features/schema";
 import { getSessionUser } from "~/lib/get-session-user";
 
 interface BoardsPageProps {
@@ -13,21 +12,21 @@ interface BoardsPageProps {
 
 const getData = async (id: User["id"]): Promise<BoardTableRow[]> => {
   const result = await db.execute(sql`
-      SELECT 
+      SELECT
           MAX(b.id) AS id
         , MAX(b.name) AS name
         , MAX(b.description) AS description
         , MAX(b.created_at) AS createdAt
         , SUM(CASE WHEN ba.board_id IS NULL THEN 0 ELSE 1 END) AS numberAssets
-        , GROUP_CONCAT(DISTINCT a.category) AS categories 
-      FROM 
-        user_board AS ub 
-        INNER JOIN board AS b ON ub.board_id = b.id 
-        LEFT JOIN board_asset AS ba ON ba.board_id = b.id 
-        LEFT JOIN asset as a on a.id = ba.asset_id 
+        , GROUP_CONCAT(DISTINCT a.category) AS categories
+      FROM
+        user_board AS ub
+        INNER JOIN board AS b ON ub.board_id = b.id
+        LEFT JOIN board_asset AS ba ON ba.board_id = b.id
+        LEFT JOIN asset as a on a.id = ba.asset_id
       WHERE
         ub.clerk_user_id = ${id}
-      GROUP BY 
+      GROUP BY
         b.id;
   `)
 
@@ -50,11 +49,6 @@ const getData = async (id: User["id"]): Promise<BoardTableRow[]> => {
       createdAt: DateTime.fromISO(row.createdAt).toJSDate()
     } satisfies BoardTableRow
   })
-
-
-  console.log(JSON.stringify(result, null, 2))
-
-  return [];
 }
 
 
@@ -71,7 +65,7 @@ export default async function BoardsPage({ }: BoardsPageProps) {
             <h2 className="text-2xl font-bold tracking-tight">Boards</h2>
           </div>
         </div>
-        <BoardsTable data={data} />
+        <BoardsTable data={data} filterPlaceholder="Filter Boards..." />
       </div>
     </>
   );

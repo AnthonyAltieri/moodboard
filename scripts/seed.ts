@@ -12,7 +12,8 @@ import {
   type Board,
   type LocationS3,
   userBoardSchema,
-  boardAssetSchema
+  boardAssetSchema,
+  userAssetSchema
 } from "~/features/schema";
 
 dotenv.config({ debug: true });
@@ -95,6 +96,7 @@ const seed = async () => {
       await db.insert(locationS3Schema).values(location)
       await db.insert(assetSchema).values(asset)
       await db.insert(boardAssetSchema).values({ boardId: board.id, assetId: asset.id });
+      await db.insert(userAssetSchema).values({ clerkUserId: CLERK_SEED_USER_ID, assetId: asset.id  })
     }
     if (!has0AssetBoard) {
       has0AssetBoard = true;

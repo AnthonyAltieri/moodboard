@@ -11,19 +11,29 @@ import {
   type ColumnFiltersState,
   type SortingState,
   type VisibilityState,
+  ColumnDef,
 } from "@tanstack/react-table";
 import React from "react";
-import { boardColumns } from "~/components/boards-table/board-columns";
+import { DataTable, DataTableProps } from "~/components/data-table";
 import { Input } from "~/components/ui/input";
-import { type Asset, type Board } from "~/features/schema";
-import { DataTable } from "../data-table";
+import { type Asset } from "~/features/schema";
 
-export type BoardTableRow = Board & {
-  numberAssets: number;
-  categories: Asset["category"][];
-};
+export type AssetTableRow = Asset;
 
-export const BoardsTable = ({ data: data }: { data: BoardTableRow[] }) => {
+export interface AssetTableProps {
+  data: AssetTableRow[];
+  filterPlaceholder: string;
+  columns: ColumnDef<AssetTableRow>[];
+  onRowClick?: DataTableProps<AssetTableRow>["onRowClick"];
+}
+
+
+export const AssetTable = ({
+  data: data,
+  columns,
+  filterPlaceholder,
+  onRowClick,
+}: AssetTableProps) => {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -34,7 +44,7 @@ export const BoardsTable = ({ data: data }: { data: BoardTableRow[] }) => {
 
   const table = useReactTable({
     data: data,
-    columns: boardColumns,
+    columns,
     state: {
       sorting,
       columnVisibility,
@@ -57,14 +67,14 @@ export const BoardsTable = ({ data: data }: { data: BoardTableRow[] }) => {
   return (
     <>
       <Input
-        placeholder="Filter boards..."
+        placeholder={filterPlaceholder}
         value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
         onChange={(event) =>
           table.getColumn("name")?.setFilterValue(event.target.value)
         }
         className="h-8 w-[256px] lg:w-[250px]"
       />
-      <DataTable table={table} numberColumns={boardColumns.length} />
+      <DataTable table={table} numberColumns={columns.length} onRowClick={onRowClick} />
     </>
   );
 };

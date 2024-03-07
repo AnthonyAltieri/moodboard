@@ -14,6 +14,7 @@ import {
 import { Icons } from "~/components/icons"
 import { Button } from "~/components/ui/button"
 import Link from "next/link";
+import { deleteAsset } from "~/components/assets-table/delete-asset.action"
 
 interface RowActionsProps<TData> {
   row: Row<TData>;
@@ -37,13 +38,15 @@ export function RowActions<TData>({ row, toEditHref }: RowActionsProps<TData>) {
       <DropdownMenuContent align="end" className="w-[160px]">
         <DropdownMenuItem>
           <Link href={href}>
-          Edit
+            Edit
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>Make a copy</DropdownMenuItem>
         <DropdownMenuItem>Favorite</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={async () => {
+          await deleteAsset(row.original.id)
+        }}>
           Delete
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
         </DropdownMenuItem>

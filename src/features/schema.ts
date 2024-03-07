@@ -49,7 +49,7 @@ export const boardAssetSchema = mysqlTable("board_asset", {
 export type BoardAsset = typeof boardAssetSchema.$inferSelect;
 
 export const userBoardSchema = mysqlTable("user_board", {
-  // I've only seen 32 length ids, we'll increase it if we have to 
+  // I've only seen 32 length ids, we'll increase it if we have to
   clerkUserId: varchar("clerk_user_id", { length: 32 }),
   boardId: varchar("board_id", { length: 12 }),
   role: mysqlEnum("role", ["owner", "edit", "read"])
@@ -59,3 +59,15 @@ export const userBoardSchema = mysqlTable("user_board", {
   }
 })
 export type UserBoard = typeof userBoardSchema.$inferSelect;
+
+export const userAssetSchema = mysqlTable("user_asset", {
+  // I've only seen 32 length ids, we'll increase it if we have to
+  clerkUserId: varchar("clerk_user_id", { length: 32 }),
+  assetId: varchar("asset_id", { length: 12 }),
+  role: mysqlEnum("role", ["owner", "edit", "read"])
+}, (table) => {
+  return {
+    pk: primaryKey(table.clerkUserId, table.assetId),
+  }
+})
+export type UserAsset = typeof userAssetSchema.$inferSelect;

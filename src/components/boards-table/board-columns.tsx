@@ -1,15 +1,12 @@
 "use client";
 import { type ColumnDef } from "@tanstack/react-table";
-import { Badge } from "lucide-react";
 import { type BoardTableRow } from "~/components/boards-table/boards-table";
 import { ColumnHeader } from "~/components/boards-table/column-header";
 import { RowActions } from "~/components/boards-table/row-actions";
 import { Checkbox } from "~/components/ui/checkbox";
-import { type Board } from "~/features/boards/board";
+import { type Board } from "~/features/schema";
 
-
-
-export const columns: ColumnDef<BoardTableRow>[] = [
+export const boardColumns: ColumnDef<BoardTableRow>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -36,9 +33,7 @@ export const columns: ColumnDef<BoardTableRow>[] = [
   },
   {
     accessorKey: "name",
-    header: ({ column }) => (
-      <ColumnHeader column={column} title="Board" />
-    ),
+    header: ({ column }) => <ColumnHeader column={column} title="Board" />,
     cell: ({ row }) => <div className="w-[200px]">{row.getValue("name")}</div>,
     enableSorting: false,
     enableHiding: false,
@@ -49,7 +44,8 @@ export const columns: ColumnDef<BoardTableRow>[] = [
       <ColumnHeader column={column} title="Asset Categories" />
     ),
     cell: ({ row }) => {
-      const categories = row.getValue<BoardTableRow["categories"]>("categories")
+      const categories =
+        row.getValue<BoardTableRow["categories"]>("categories");
 
       return (
         <div className="flex items-center space-x-2">
@@ -60,7 +56,7 @@ export const columns: ColumnDef<BoardTableRow>[] = [
             //priority.icon && ( ?? <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />)
           }
         </div>
-      )
+      );
     },
   },
   {
@@ -69,27 +65,26 @@ export const columns: ColumnDef<BoardTableRow>[] = [
       <ColumnHeader column={column} title="Number Assets" />
     ),
     cell: ({ row }) => {
-      const numberAssets = row.getValue<Board["numberAssets"]>("numberAssets")
+      const numberAssets =
+        row.getValue<BoardTableRow["numberAssets"]>("numberAssets");
 
-      return (
-        <div className="flex items-center space-x-2">
-          {numberAssets}
-        </div>
-      )
+      return <div className="flex items-center space-x-2">{numberAssets}</div>;
     },
     filterFn: (row, id, value) => {
       // eslint-disable-next-line
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
     id: "actions",
-    cell: ({ row }) => <RowActions
-      row={row}
-      toEditHref={(row) => {
-        const id = row.original.id
-        return `/boards/${id}`
-      }}
-    />,
+    cell: ({ row }) => (
+      <RowActions
+        row={row}
+        toEditHref={(row) => {
+          const id = row.original.id;
+          return `/boards/${id}`;
+        }}
+      />
+    ),
   },
-]
+];

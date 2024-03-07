@@ -1,12 +1,8 @@
 "use client";
 
-import {
-  flexRender,
-  type Table as TanstackTable
-} from "@tanstack/react-table";
+import { flexRender, Row, type Table as TanstackTable } from "@tanstack/react-table";
 
-import { columns } from "~/components/boards-table/columns";
-import { DataTablePagination } from "~/components/boards-table/data-table-pagination";
+import { DataTablePagination } from "~/components/data-table-pagination";
 import {
   Table,
   TableBody,
@@ -16,13 +12,17 @@ import {
   TableRow,
 } from "~/components/ui/table";
 
-
-interface DataTableProps<TData> {
-  table: TanstackTable<TData>
+export interface DataTableProps<TData> {
+  table: TanstackTable<TData>;
+  numberColumns: number;
+  onRowClick?: (row: Row<TData>) => any;
 }
 
-export function DataTable<TData>({ table }: DataTableProps<TData>) {
-
+export function DataTable<TData>({
+  table,
+  numberColumns,
+  onRowClick,
+}: DataTableProps<TData>) {
   return (
     <div className="space-y-4">
       <div className="rounded-md border">
@@ -36,11 +36,11 @@ export function DataTable<TData>({ table }: DataTableProps<TData>) {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -51,12 +51,16 @@ export function DataTable<TData>({ table }: DataTableProps<TData>) {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  onClick={() => {
+                    console.log("onClick");
+                    onRowClick?.(row)
+                  }}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -64,10 +68,7 @@ export function DataTable<TData>({ table }: DataTableProps<TData>) {
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={numberColumns} className="h-24 text-center">
                   No results.
                 </TableCell>
               </TableRow>
@@ -77,5 +78,5 @@ export function DataTable<TData>({ table }: DataTableProps<TData>) {
       </div>
       <DataTablePagination table={table} />
     </div>
-  )
+  );
 }
